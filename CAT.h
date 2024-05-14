@@ -13,6 +13,53 @@
 
 namespace CAT {
 
+template<typename T>
+std::ostream& operator<< (std::ostream& os, const std::vector<T>& v) {
+    for (const T& item : v)
+        os << item << ", ";
+    os << "end";
+    return os;
+}
+
+template<typename T1, typename T2>
+std::ostream& operator<< (std::ostream& os, const std::pair<T1, T2>& p) {
+    os << p.first << ", " << p.second << "\n";
+    return os;
+}
+
+template<typename T>
+std::ostream& operator<< (std::ostream& os, const std::stack<T>& cstk) {
+    std::stack<T> stk {cstk};
+    os << "Bottom -> ";
+    while (!stk.empty()) {
+        os << stk.top() << " ";
+        stk.pop();
+    }
+    os << "-> top";
+    return os;
+}
+
+template<typename T>
+std::ostream& operator<< (std::ostream& os, const std::queue<T>& cqueue) {
+    std::queue<T> queque {cqueue};
+    os << "Front <- ";
+    while (!queque.empty()) {
+        os << queque.front() << " ";
+        queque.pop();
+    }
+    os << "<- End";
+    return os;
+}
+
+template<typename T>
+std::ostream& operator<< (std::ostream& os, const std::forward_list<T>& clist) {
+    for (const T& item : clist)
+        os << item << " -> ";    
+    os << "end";
+
+    return os;
+}
+
 const std::string RED = "\033[31m";
 const std::string GREEN = "\033[32m";
 const std::string RESET = "\033[0m";
@@ -65,53 +112,6 @@ void exec(const std::string& func_name,  void func_body(void)) {
   std::cout << func_name << '\n';
   func_body();
   std::cout << '\n';
-}
-
-template<typename T>
-std::ostream& operator<< (std::ostream& os, const std::vector<T>& v) {
-    for (const T& item : v)
-        os << item << ", ";
-    os << "end";
-    return os;
-}
-
-template<typename T1, typename T2>
-std::ostream& operator<< (std::ostream& os, const std::pair<T1, T2>& p) {
-    os << p.first << ", " << p.second << "\n";
-    return os;
-}
-
-template<typename T>
-std::ostream& operator<< (std::ostream& os, const std::stack<T>& cstk) {
-    std::stack<T> stk {cstk};
-    os << "Bottom -> ";
-    while (!stk.empty()) {
-        os << stk.top() << " ";
-        stk.pop();
-    }
-    os << "-> top";
-    return os;
-}
-
-template<typename T>
-std::ostream& operator<< (std::ostream& os, const std::queue<T>& cqueue) {
-    std::queue<T> queque {cqueue};
-    os << "Front <- ";
-    while (!queque.empty()) {
-        os << queque.front() << " ";
-        queque.pop();
-    }
-    os << "<- End";
-    return os;
-}
-
-template<typename T>
-std::ostream& operator<< (std::ostream& os, const std::forward_list<T>& clist) {
-    for (const T& item : clist)
-        os << item << " -> ";    
-    os << "end";
-
-    return os;
 }
 
 } // namespace CAT

@@ -2,9 +2,13 @@
 This example demonstrates the basic use of CAT library.
 
 ## Files explained
+
 `add.h`: The function that we want to test. Here is the add() function.
+
 `add.c`: The implementation of add.h
+
 `test_add.cc`: The testing code file.
+
 `build_and_test.sh`: Simple shell script to compile and run the testing. If you do not know what a shell script is, just open it to see what commands included. If you encounter the following error messages:
 ```
 permission denied: ./build_and_test.sh
