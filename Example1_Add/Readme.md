@@ -21,9 +21,9 @@ chmod +x build_and_test.sh
 ## Codes explained
 The key code line is as below:
 ```c++
-check_and_report(add(1, 1), 2);
-check_and_report(add(1, -1), 0);
-check_and_report(add(-1, -1) == -2, true);
+assert_equal(add(1, 1), 2);
+assert_equal(add(1, -1), 0);
+assert_equal(add(-1, -1) == -2, true);
 ```
 Here we build three testing cases, in short:
 We expect that add(1, 1) equals to 2;

@@ -8,19 +8,19 @@ When I studied data structure and algorithms with C++ language in SJSU, 2023 fal
 2. It only has very basic functionality, but enough for university assignments. I do not wanna make it perfect. This is not the goal of this tiny framework.
 
 ## How to use it in 10 minutes
-It is only one header file, three functions. 
+It is only one header file, in which several functions exist. The most frequently used functions are: 
 
-`void check_and_report(const T1& result, const T2& expected)`: Compare whether result is equal to expected, and report the comparison result. For floating number, we have a slightly different version because of precising.
+`void assert_equal(const T1& result, const T2& expected)`: Compare whether result is equal to expected, and report the comparison result. For floating number, we have a slightly different version because of precising.
 
-`final_check_and_report()`: Output the testing statistics.
+`final_stats()`: Output the testing statistics.
 
 `void exec(const std::string& func_name,  void func_body(void))`: Utility function. You could decide whether use it or not. You could go to the example folder to see how to use it.
 
 In you testing code, please add the following code, and there we go.
 ```c++
-#include "CAT.h"
-using CAT::check_and_report;
-using CAT::final_check_and_report;
+#include "CAT.hpp"
+using CAT::assert_equal;
+using CAT::final_stats;
 using CAT::exec;
 ```
 
@@ -31,14 +31,14 @@ int add(int a, int b);
 
 You could write the following testing code:
 ```c++
-check_and_report(add(1, 1) 2);
-check_and_report(add(-1, -1) == -2, true);
+assert_equal(add(1, 1) 2);
+assert_equal(add(-1, -1) == -2, true);
 ```
 
 Please refer to Example1_Add to see more details.
 
 ## How to understand it in 30 minutes
-The basic idea behind testing is quite straightforwad: You compare the actual result of the function to be tested with the expected result, if they are the same, it would be great; if they are different, report the differences to programmers. After testing all cases, you could report the entire testing statistics. `check_and_report()` function implements the comparison process, and `final_check_and_report()` function implements the final report. Besides, there are several utility functions:
+The basic idea behind testing is quite straightforwad: You compare the actual result of the function to be tested with the expected result, if they are the same, it would be great; if they are different, report the differences to programmers. After testing all cases, you could report the entire testing statistics. `assert_equal()` function implements the comparison process, and `final_stats()` function implements the final report. Besides, there are several utility functions:
 
 `simpleOutput()` and `verboseOutput()`: As name indicated, such two functions are used for output. if testing is passed, then simpleOutput, otherwise, we need to verboseOutput.
 
@@ -71,6 +71,12 @@ There are some popular c++ framework for references. The information is provided
 - Google Test (gtest): is a widely used framework from Google. It offers a rich set of features including support for various test types (unit, death tests, etc.), advanced assertions, and easy test discovery. While powerful, it might have a slightly steeper learning curve for beginners.
 
 - Boost.Test: is a mature framework part of the Boost C++ Libraries. It provides extensive functionality including test fixtures, test registration macros, and support for different test runners. It offers a good balance of features and complexity.
+
+- simpletest: A super simple framwork for implementing Unit Tests
+Link: https://github.com/kudaba/simpletest
+
+- Unit Test Framework: A lightweight, easy to use, C++11 unit testing framework implemented in a single .hpp file.
+Link: https://github.com/eecs280staff/unit_test_framework/
 
 ## Contacts
 If you have any ideas, please contact me haitao.long AT sjsu.edu.

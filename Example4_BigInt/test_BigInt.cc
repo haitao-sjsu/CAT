@@ -1,8 +1,8 @@
 #include "BigInt.h"
 
-#include "../CAT.h"
-using CAT::check_and_report;
-using CAT::final_check_and_report;
+#include "../CAT.hpp"
+using CAT::assert_equal;
+using CAT::final_stats;
 using CAT::exec;
 
 #include <vector>
@@ -25,7 +25,7 @@ void test_addition() {
     int opd1 = get<0>(c);
     int opd2 = get<1>(c);
     int expected = get<2>(c);
-    check_and_report(BigInt(opd1) + BigInt(opd2), BigInt(expected));
+    assert_equal(BigInt(opd1) + BigInt(opd2), BigInt(expected));
   }
 }
 {
@@ -45,7 +45,7 @@ void test_addition() {
     string opd1 = get<0>(c);
     string opd2 = get<1>(c);
     string expected = get<2>(c);
-    check_and_report(BigInt(opd1) + BigInt(opd2), BigInt(expected));
+    assert_equal(BigInt(opd1) + BigInt(opd2), BigInt(expected));
   }
 }
 }
@@ -54,5 +54,5 @@ void test_addition() {
 
 int main(int argc, char *argv[]) {
     EXEC(test_addition);
-    final_check_and_report();
+    final_stats();
 }

@@ -3,12 +3,13 @@
 
 #include <string>
 #include <vector>
-#include <utility>
 #include <stack>
 #include <queue>
 #include <forward_list>
 #include <ostream>
 #include <iostream>
+#include <functional>
+#include <utility>
 #include <cmath>
 
 namespace CAT {
@@ -69,46 +70,67 @@ const std::string sFinalPassed = GREEN + "Congratulations! All tests passed!" + 
 const std::string sFinalFailed = RED + "Some tests failed. Pls check." + RESET;
 const double tolerance = 1e-8;
 
+int caseNumTotal = 0;
 int caseNum = 0;
 int passNum = 0;
 int failNum = 0;
 
 void simpleOutput() {
-    passNum++;
-    std::cout << "Testcase #" << ++caseNum << " " << sPassed << "\n";
+    std::cout << "Testcase #" << caseNum << " " << sPassed << "\n";
 }
 
-template<typename T1, typename T2 = T1>
+template<typename T1, typename T2=T1>
 void verboseOutput(const T1& result, const T2& expected) {
-    failNum++;
     std::cout << std::boolalpha
-                << "Testcase #" << ++caseNum << " " << sFailed << "\n"
-                << "result: " << result << "\n"
-                << "expected: " << expected << "\n";
+              << "Testcase #" << caseNum << " " << sFailed << "\n"
+              << "result: " << result << "\n"
+              << "expected: " << expected << "\n";
 }
 
-template<typename T1, typename T2 = T1>
-void check_and_report(const T1& result, const T2& expected) {
-    if (result == expected)
+template<typename T1, typename T2=T1, typename Compare>
+void _assert(const T1& result, const T2& expected, Compare cmp) {
+    ++caseNum, ++caseNumTotal;
+    if (cmp(result, expected)) {
+        ++passNum;
         simpleOutput();
-    else
+    } else {
+        ++failNum;
         verboseOutput(result, expected);
+    }
 }
 
-void check_and_report(double result, double expected) {
-    if (std::abs(result - expected) < tolerance)
-        simpleOutput();
-    else
-        verboseOutput(result, expected);
+template<typename T1, typename T2=T1>
+inline void assert_equal(const T1& result, const T2& expected) {
+    _assert(result, expected, std::equal_to<T1>());
 }
 
-void final_check_and_report() {
+inline void assert_equal(double result, double expected) {
+    auto almost_equal = [](double result, double expected) 
+                        {return std::abs(result - expected) < tolerance;};
+    _assert(result, expected, almost_equal);
+}
+
+template<typename T1, typename T2=T1>
+inline void assert_no_equal(const T1& result, const T2& expected) {
+    _assert(result, expected, std::not_equal_to<T1>());
+}
+
+inline void assert_true(bool result) {
+    _assert(result, true, std::equal_to<bool>());
+}
+
+inline void assert_false(bool result) {
+    _assert(result, false, std::equal_to<bool>());
+}
+
+void final_stats() {
     std::cout << "\nTotal " << passNum + failNum << " testcase(s). " << "\n"
               << sPassed << " " << passNum << "; " << sFailed << " " << failNum << '\n'
               << (failNum == 0 ? sFinalPassed : sFinalFailed) << "\n\n";
 }
 
 void exec(const std::string& func_name,  void func_body(void)) {
+  caseNum = 0;
   std::cout << func_name << '\n';
   func_body();
   std::cout << '\n';
