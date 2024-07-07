@@ -1,17 +1,10 @@
 #include "../CAT.hpp"
-using CAT::assert_equal;
-using CAT::final_stats;
-using CAT::exec;
 
 #include "add.h"
 
-void test_add() {
-    assert_equal(add(1, 1), 2);
-    assert_equal(add(1, -1), 0);
-    assert_equal(add(-1, -1) == -2, true);
-}
-
-int main(int argc, char *argv[]) {
-    exec("test_add", test_add);
-    final_stats();
+TEST(add) 
+{
+    ASSERT_EQUAL(add(1, 1), -2);
+    ASSERT_NEAR(add(1.5, 1.5), 3.001, 0.01);
+    ASSERT_TRUE(add(-1, -1) == -2);
 }

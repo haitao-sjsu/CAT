@@ -1,7 +1,4 @@
 #include "../CAT.hpp"
-using CAT::assert_equal;
-using CAT::final_stats;
-using CAT::exec;
 
 #include "mergeStrings.h"
 
@@ -13,11 +10,13 @@ using std::string;
 using std::tuple;
 using std::get;
 
-void test_simple() {
-    assert_equal(mergeStrings({"ab", "cd", "ef"}), "acebdf");
+TEST(simple)
+{
+    ASSERT_EQUAL(mergeStrings({"ab", "cd", "ef"}), "acebdf");
 }
 
-void test_group() {
+TEST(group)
+{
     vector<tuple<vector<string>, string>> cases {
         {
             {"ab", "cd", "ef"},
@@ -35,7 +34,7 @@ void test_group() {
     for (auto& c : cases) {
         const auto& input = get<0>(c);
         const auto& expected = get<1>(c);
-        assert_equal(mergeStrings(input), expected);
+        ASSERT_EQUAL(mergeStrings(input), expected);
     }
 }
 
@@ -57,15 +56,6 @@ void test_margin() {
     for (auto& c : cases) {
         const auto& input = get<0>(c);
         const auto& expected = get<1>(c);
-        assert_equal(mergeStrings(input), expected);
+        ASSERT_EQUAL(mergeStrings(input), expected);
     }
-}
-
-#define EXEC(test) exec(#test, test)
-
-int main(int argc, char *argv[]) {
-    EXEC(test_simple);
-    EXEC(test_group);
-    EXEC(test_margin);
-    final_stats();
 }
